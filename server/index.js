@@ -34,7 +34,7 @@ module.exports = db;
 
 
 // Registration endpoint
-app.post("/api/register", (req, res) => {
+app.post("/api/registers", (req, res) => {
   const { EmailID, PhoneNo, PinCode, Password, FirstName, LastName, DOB } = req.body;
   console.log("connected");
   console.log(req.body)
@@ -100,7 +100,25 @@ app.post("/api/login", (req, res) => {
   })
 });
 
+app.post("/api/registerc" ,(req,res) =>{
+const {CompanyName,EmailID,Password} = req.body
 
+const query = "INSERT INTO COMPANY(CompanyName,EmailID,Password) VALUES (?,?,?)"
+values = [CompanyName,EmailID,Password]
+db.query(query,values, (error,results) =>{
+  if(error){
+    console.error("Error registering data",error)
+    return res.status(500).json({message:"Error registering user"})
+  }
+  return res.status(201).json({message:"User Registered Succesfully"})
+})
+
+
+}
+
+
+
+)
 
 // Start the server
 app.listen(port, () => {
